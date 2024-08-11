@@ -12,7 +12,7 @@ namespace SnakeGame
         private SnakeSegmentController segmentFront = null;
         private SnakeSegmentController segmentBack = null;
         private Vector2Int segmentPosition = Vector2Int.zero;
-        [SerializeField]  private Vector2Int segmentDirection = Vector2Int.right;
+        [SerializeField] private Vector2Int segmentDirection = Vector2Int.right;
 
 
 
@@ -32,9 +32,9 @@ namespace SnakeGame
         {
             SetupSnakeSegment(null, newPostion, newSegmentDirection);
         }
-        public void SetupSnakeSegment( SnakeSegmentController newSegmentFront, Vector2Int newPostion, Vector2Int newSegmentDirection)
+        public void SetupSnakeSegment(SnakeSegmentController newSegmentFront, Vector2Int newPostion, Vector2Int newSegmentDirection)
         {
-           
+
             segmentPosition = newPostion;
             segmentFront = newSegmentFront;
             segmentBack = null;
@@ -48,8 +48,8 @@ namespace SnakeGame
             if (segmentBack == null)
             {
                 segmentBack = Instantiate(this, transform.parent);
-             
-                segmentBack.SetupSnakeSegment( this, segmentPosition - segmentDirection, segmentDirection);
+
+                segmentBack.SetupSnakeSegment(this, segmentPosition - segmentDirection, segmentDirection);
             }
             else
             {
@@ -60,7 +60,7 @@ namespace SnakeGame
         {
             segmentFill.color = gameOverColor;
         }
-    
+
 
         private void SeupSegmentFill()
         {
@@ -72,16 +72,43 @@ namespace SnakeGame
             transform.position = elementPosition;
         }
         public void SegmentAdvance()
-        {     
+        {
             if (segmentBack != null)
             {
                 segmentBack.SegmentAdvance();
             }
             MoveSegment();
-            if(segmentFront != null)
+            if (segmentFront != null)
             {
                 segmentDirection = segmentFront.segmentDirection;
             }
+        }
+        public int GetSnakeLenght()
+        {
+            return GetSegmentsLenght(0);
+        }
+
+        public bool IsPositionOnSnake(Vector2Int testedPosition)
+        {
+            if(segmentPosition== testedPosition)
+            {
+                return true; // the position is on this segment
+            }
+            if(segmentBack != null)
+            {
+                return segmentBack.IsPositionOnSnake(testedPosition);  // the position is on not on this segment lets chek the next one
+            }
+            return false; // snake finished position not found
+        }
+
+        private int GetSegmentsLenght(int segmentsAlreadyCounted)
+        {
+            int snakeLenght = segmentsAlreadyCounted+1;
+            if (segmentBack == null)
+            {
+                return snakeLenght;
+            }
+            return segmentBack.GetSegmentsLenght(snakeLenght);
         }
 
         private void MoveSegment()
@@ -150,7 +177,10 @@ namespace SnakeGame
             return segmentBack.IsHeadIntersectSnake(this);
 
         }
-        
+        public void CollectPowerUps()
+        {
+            var collectedPowerup = playfieldData.CollectPowerUp(segmentPosition);
+        }
       
 
     }

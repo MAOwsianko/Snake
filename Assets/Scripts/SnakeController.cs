@@ -8,6 +8,8 @@ namespace SnakeGame
 {
     public class SnakeController : MonoBehaviour
     {
+        [SerializeField] private PlayFieldData playField = null;
+        [SerializeField] private GameEvent gameTick = null;
         [SerializeField] private GameEvent gameOverEvent = null;
         [SerializeField] private int initialSnakeSegmentsCount = 3;
         [SerializeField] private Vector2Int initialPosition = Vector2Int.zero;
@@ -15,6 +17,9 @@ namespace SnakeGame
         [SerializeField] private float initialMoveTime = 0.5f;
        
         [SerializeField] private SnakeSegmentController snakeSegmentPrefab = null;
+
+       
+
 
         private bool gameStarted = false;
         private Coroutine snakeMoveCoroutine = null;
@@ -63,6 +68,7 @@ namespace SnakeGame
             {
                 snakeHead.GrowSnake();
             }
+            playField.SeupSnakeHead(snakeHead);
         }
 
         private IEnumerator SnakeMove()
@@ -84,6 +90,11 @@ namespace SnakeGame
                     {
                         gameOverEvent.Rise();   
                     }
+                }
+                else
+                {
+                    snakeHead.CollectPowerUps();
+                    gameTick.Rise();
                 }
             }
         }

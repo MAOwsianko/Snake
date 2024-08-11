@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8059082583431657694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6235733465610210979
@@ -97,5 +98,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33239ed0bdd9c4e4981e02697cbf8f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileSize: 0.25
-  tilesGridSize: {x: 57, y: 33}
+  playfieldData: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
+  powerUps:
+  - {fileID: 11400000, guid: 483ff71ae7b87e04abd45b97fabef0e1, type: 2}
+  powerupsPerSpawn: 3
+--- !u!1 &3314124523168775556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8059082583431657694}
+  - component: {fileID: 9090361826562559096}
+  m_Layer: 0
+  m_Name: GameTickListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8059082583431657694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3314124523168775556}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5544015071848638696}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9090361826562559096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3314124523168775556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730c3a0c7dfb7184dbfac32b351677b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedEvent: {fileID: 11400000, guid: ad3629d50ce323f4ca0bda9e9dd75615, type: 2}
+  actions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4425409388024294729}
+        m_TargetAssemblyTypeName: SnakeGame.GameFieldController, Assembly-CSharp
+        m_MethodName: OnGameTick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
