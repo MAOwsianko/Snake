@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 521098213763742229}
   - component: {fileID: 8327527001772711960}
-  - component: {fileID: 235471531885062323}
+  - component: {fileID: 5984974602997523379}
   m_Layer: 0
   m_Name: Collectible
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &235471531885062323
+--- !u!114 &5984974602997523379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd729ee02e65c0e4b92d7fe341aa7178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFieldData: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
   powerUp: {fileID: 0}
   collectiblePosition: {x: 0, y: 0}

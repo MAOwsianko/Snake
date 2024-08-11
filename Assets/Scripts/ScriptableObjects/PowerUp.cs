@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace SnakeGame
 {
-    public class PowerUp : ScriptableObject
+    public abstract class PowerUp : ScriptableObject
     {
-        
+        public Color powerUpColor = Color.white;
+        public abstract void ApplyPowerUp(SnakeSegmentController snakeHead);
+
     }
 }

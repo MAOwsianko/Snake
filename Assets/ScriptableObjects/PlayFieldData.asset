@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6a3ce4f44690f42b9505d87b5aafd3, type: 3}
   m_Name: PlayFieldData
   m_EditorClassIdentifier: 
-  tileSize: 0.25
-  tilesGridSize: {x: 57, y: 33}
-  collectiblePrefab: {fileID: 235471531885062323, guid: 6b4d2a448e7df084b968cf6263843035, type: 3}
+  tileSize: 0.5
+  tilesGridSize: {x: 27, y: 15}
+  collectiblePrefab: {fileID: 5984974602997523379, guid: 6b4d2a448e7df084b968cf6263843035, type: 3}

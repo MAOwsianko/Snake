@@ -93,9 +93,18 @@ namespace SnakeGame
                 }
                 else
                 {
-                    snakeHead.CollectPowerUps();
+                    CollectPowerUps();
                     gameTick.Rise();
                 }
+            }
+        }
+
+        public void CollectPowerUps()
+        {
+            var collectedPowerup = playField.CollectPowerUp(snakeHead);
+            if (collectedPowerup != null)
+            {
+                collectedPowerup.ApplyPowerUp(snakeHead);
             }
         }
         public void SetSnakeDirection(InputAction.CallbackContext givenValue)

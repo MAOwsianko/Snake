@@ -14,7 +14,14 @@ namespace SnakeGame
         private Vector2Int segmentPosition = Vector2Int.zero;
         [SerializeField] private Vector2Int segmentDirection = Vector2Int.right;
 
-
+        public Vector2Int SegmentPosition
+        {
+            get
+            {
+                return segmentPosition;
+            }
+          
+        }
 
         public Vector2Int SegmentDirection
         {
@@ -177,10 +184,7 @@ namespace SnakeGame
             return segmentBack.IsHeadIntersectSnake(this);
 
         }
-        public void CollectPowerUps()
-        {
-            var collectedPowerup = playfieldData.CollectPowerUp(segmentPosition);
-        }
+     
       
 
     }

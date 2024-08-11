@@ -111,9 +111,13 @@ namespace SnakeGame
             return null;
         }
 
-       public PowerUp CollectPowerUp(Vector2Int headPosition)
+       public PowerUp CollectPowerUp(SnakeSegmentController headSegment)
        {
-            var collectible = GetCollectibleOnPosition(headPosition);   
+            if(headSegment == null)
+            {
+                return null;
+            }
+            var collectible = GetCollectibleOnPosition(headSegment.SegmentPosition);   
             if(collectible != null)
             {
                 collectiblesOnField.Remove(collectible);
