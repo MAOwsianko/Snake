@@ -500,10 +500,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SnakeController
       objectReference: {fileID: 0}
-    - target: {fileID: 4712641496356009537, guid: 3034618fb53fa174c9170ff0e7dbad89, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -623,6 +619,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameFieldController
       objectReference: {fileID: 0}
+    - target: {fileID: 4425409388024294729, guid: 1a222063418403040a89cbe5b16cfb43, type: 3}
+      propertyPath: playfieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
     - target: {fileID: 5544015071848638696, guid: 1a222063418403040a89cbe5b16cfb43, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

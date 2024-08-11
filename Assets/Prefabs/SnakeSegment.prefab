@@ -184,3 +184,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segmentFill: {fileID: 7326754239994675450}
   fillToSizeRatio: 0.8
+  playfieldData: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}

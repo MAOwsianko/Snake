@@ -1,57 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GameFieldController : MonoBehaviour
+namespace SnakeGame
 {
-    [SerializeField] private float tileSize = 0.25f;
-    [Tooltip("Tte tile grid size has to have odd number in both witdht and height, so we have a defined middle element")]
-    [SerializeField] private Vector2Int tilesGridSize = new Vector2Int(57,33);
-
-    public float TileSize
+    public class GameFieldController : MonoBehaviour
     {
-        get 
-        { 
-            return tileSize; 
-        }
-
-    }
-
-    public Vector2Int TilesGridSize
-    {
-        get
+        [SerializeField] private PlayFieldData playfieldData = null;
+    
+        private SpriteRenderer _spriteRenderer;
+        private SpriteRenderer spriteRenderer
         {
-            return tilesGridSize;
-        }
-
-    }
-
-
-    private SpriteRenderer _spriteRenderer;
-    private SpriteRenderer spriteRenderer
-    {
-        get
-        {
-            if(_spriteRenderer == null)
+            get
             {
-                _spriteRenderer = GetComponent<SpriteRenderer>();   
+                if (_spriteRenderer == null)
+                {
+                    _spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+                return _spriteRenderer;
             }
-            return _spriteRenderer; 
         }
+
+
+        void Start()
+        {
+            SetupField();
+        }
+        //We setup the field so that it is always a multiple of the tile size, so that it forms a nice neat grid
+        private void SetupField()
+        {
+            float fieldWidth = playfieldData.TileSize * (float)playfieldData.TilesGridSize.x;
+            float fieldHeight = playfieldData.TileSize * (float)playfieldData.TilesGridSize.y;
+            spriteRenderer.size = new Vector2(fieldWidth, fieldHeight);
+        }
+
+
     }
-
-
-    void Start()
-    {
-        SetupField();
-    }
-    //We setup the field so that it is always a multiple of the tile size, so that it forms a nice neat grid
-    private void SetupField()
-    {
-        float fieldWidth = tileSize * (float)TilesGridSize.x;
-        float fieldHeight = tileSize * (float )TilesGridSize.y;
-        spriteRenderer.size = new Vector2(fieldWidth, fieldHeight);
-    }
-
-
 }

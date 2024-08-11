@@ -2,73 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
-
-public class SnakeController : MonoBehaviour
+namespace SnakeGame
 {
-    [SerializeField] private int initialSnakeSegmentsCount = 3;
-    [SerializeField] private Vector2Int initialPosition = Vector2Int.zero;
-    [SerializeField] private Vector2Int initialDirection = Vector2Int.right;
-    [SerializeField] private float initialMoveTime = 0.5f;
-    [SerializeField] private SnakeSegmentController snakeSegmentPrefab = null;
-
-    private bool gameStarted = false;
-    private Coroutine snakeMoveCoroutine = null;
-    private float moveTime = 0.5f;
-    private SnakeSegmentController snakeHead = null;
-   
-    private GameFieldController _gameFieldController = null;
-    private GameFieldController gameFieldController
+    public class SnakeController : MonoBehaviour
     {
-        get
+        [SerializeField] private int initialSnakeSegmentsCount = 3;
+        [SerializeField] private Vector2Int initialPosition = Vector2Int.zero;
+        [SerializeField] private Vector2Int initialDirection = Vector2Int.right;
+        [SerializeField] private float initialMoveTime = 0.5f;
+        [SerializeField] private SnakeSegmentController snakeSegmentPrefab = null;
+
+        private bool gameStarted = false;
+        private Coroutine snakeMoveCoroutine = null;
+        private float moveTime = 0.5f;
+        private SnakeSegmentController snakeHead = null;
+
+        private GameFieldController _gameFieldController = null;
+        private GameFieldController gameFieldController
         {
-            if(_gameFieldController == null)
+            get
             {
-                _gameFieldController= FindAnyObjectByType<GameFieldController>();
+                if (_gameFieldController == null)
+                {
+                    _gameFieldController = FindAnyObjectByType<GameFieldController>();
+                }
+                return _gameFieldController;
             }
-            return _gameFieldController;
         }
-    }
 
-    public float SegmentSize
-    {
-        get
+    
+        private void Start()
         {
-            return gameFieldController.TileSize;
+            ResetGame();
         }
-    }
-
-    private void Start()
-    {
-        ResetGame();
-    }
-    private  void ResetGame()
-    {
-        moveTime = initialMoveTime;
-        SpawnSnake();
-        snakeMoveCoroutine = StartCoroutine(SnakeMove());
-    }
-
-    private void SpawnSnake()
-    {
-        snakeHead= Instantiate(snakeSegmentPrefab,transform);
-        snakeHead.SetupSnakeSegment(this, null, initialPosition, initialDirection);
-        for (int i =0; i<initialSnakeSegmentsCount;i++)
+        private void ResetGame()
         {
-            snakeHead.GrowSnake();
+            moveTime = initialMoveTime;
+            SpawnSnake();
+            snakeMoveCoroutine = StartCoroutine(SnakeMove());
         }
-    }
 
-    private IEnumerator SnakeMove()
-    {
-        if(snakeHead == null)
+        private void SpawnSnake()
         {
-            yield break;    
+            snakeHead = Instantiate(snakeSegmentPrefab, transform);
+            snakeHead.SetupSnakeSegment(  initialPosition, initialDirection);
+            for (int i = 0; i < initialSnakeSegmentsCount; i++)
+            {
+                snakeHead.GrowSnake();
+            }
         }
-        gameStarted = true;
-        while (gameStarted)
+
+        private IEnumerator SnakeMove()
         {
-            yield return new WaitForSeconds(moveTime);
-            snakeHead.SegmentAdvance();
+            if (snakeHead == null)
+            {
+                yield break;
+            }
+            gameStarted = true;
+            while (gameStarted)
+            {
+                yield return new WaitForSeconds(moveTime);
+                snakeHead.SegmentAdvance();
+            }
         }
     }
 }
