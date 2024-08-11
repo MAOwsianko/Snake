@@ -8,7 +8,7 @@ namespace SnakeGame
         [SerializeField] private SpriteRenderer segmentFill = null;
         [SerializeField] private float fillToSizeRatio = 0.8f;
         [SerializeField] private PlayFieldData playfieldData = null;
-
+        [SerializeField] private Color gameOverColor = Color.red;
         private SnakeSegmentController segmentFront = null;
         private SnakeSegmentController segmentBack = null;
         private Vector2Int segmentPosition = Vector2Int.zero;
@@ -56,7 +56,10 @@ namespace SnakeGame
                 segmentBack.GrowSnake();
             }
         }
-
+        public void SetGameover()
+        {
+            segmentFill.color = gameOverColor;
+        }
     
 
         private void SeupSegmentFill()
@@ -128,6 +131,14 @@ namespace SnakeGame
                 return segmentBack.IsHeadIntersectSnake(headSegment);   // we check the next segment id there is one
             }
             return false; // if we reached the end of the snake with no intersections then the snake is fine
+        }
+        private void OnDestroy()
+        {
+            Destroy(gameObject);
+            if(segmentBack!=null)
+            {
+                Destroy(segmentBack);
+            }
         }
 
         public bool IsHeadIntersectSnake()

@@ -8,10 +8,12 @@ namespace SnakeGame
 {
     public class SnakeController : MonoBehaviour
     {
+        [SerializeField] private GameEvent gameOverEvent = null;
         [SerializeField] private int initialSnakeSegmentsCount = 3;
         [SerializeField] private Vector2Int initialPosition = Vector2Int.zero;
         [SerializeField] private Vector2Int initialDirection = Vector2Int.right;
         [SerializeField] private float initialMoveTime = 0.5f;
+       
         [SerializeField] private SnakeSegmentController snakeSegmentPrefab = null;
 
         private bool gameStarted = false;
@@ -36,9 +38,18 @@ namespace SnakeGame
         private void Start()
         {
             ResetGame();
+           
         }
-        private void ResetGame()
+        private void CleanupLastGame()
         {
+            if(snakeHead != null)
+            {
+                Destroy(snakeHead); 
+            }
+        }
+        public void ResetGame()
+        {
+            CleanupLastGame();
             moveTime = initialMoveTime;
             SpawnSnake();
             snakeMoveCoroutine = StartCoroutine(SnakeMove());
@@ -68,11 +79,20 @@ namespace SnakeGame
                 if(snakeHead.IsHeadIntersectSnake())
                 {
                     gameStarted = false;
+                   
+                    if(gameOverEvent!=null)
+                    {
+                        gameOverEvent.Rise();   
+                    }
                 }
             }
         }
         public void SetSnakeDirection(InputAction.CallbackContext givenValue)
         {
+            if(!gameStarted)
+            {
+                return;
+            }
             if (!givenValue.performed)
             {
                 return;
