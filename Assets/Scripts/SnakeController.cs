@@ -65,6 +65,10 @@ namespace SnakeGame
             {
                 yield return new WaitForSeconds(moveTime);
                 snakeHead.SegmentAdvance();
+                if(snakeHead.IsHeadIntersectSnake())
+                {
+                    gameStarted = false;
+                }
             }
         }
         public void SetSnakeDirection(InputAction.CallbackContext givenValue)

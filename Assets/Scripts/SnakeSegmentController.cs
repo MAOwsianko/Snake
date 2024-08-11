@@ -112,7 +112,34 @@ namespace SnakeGame
 
             SetupSegmentPosition();
         }
+        private bool IsHeadIntersectSnake(SnakeSegmentController headSegment )
+        {
+            if (headSegment==null)
+            {
+                Debug.LogAssertion("SnakeSegmentController.IsHeadIntersectSnake headSegment is null");
+                return false;
+            }
+            if(headSegment.segmentPosition == segmentPosition)
+            {
+                return true; // if the head segment has the same position as a different segment, there is an intersection, so gameover
+            }
+            if(segmentBack !=null)
+            {
+                return segmentBack.IsHeadIntersectSnake(headSegment);   // we check the next segment id there is one
+            }
+            return false; // if we reached the end of the snake with no intersections then the snake is fine
+        }
 
+        public bool IsHeadIntersectSnake()
+        {
+            if (segmentBack == null)
+            {
+                return false;
+            }
+            return segmentBack.IsHeadIntersectSnake(this);
+
+        }
+        
       
 
     }
