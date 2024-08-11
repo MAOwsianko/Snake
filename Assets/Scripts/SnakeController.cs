@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 namespace SnakeGame
 {
     public class SnakeController : MonoBehaviour
@@ -29,7 +31,7 @@ namespace SnakeGame
                 return _gameFieldController;
             }
         }
-
+        
     
         private void Start()
         {
@@ -65,5 +67,19 @@ namespace SnakeGame
                 snakeHead.SegmentAdvance();
             }
         }
+        public void SetSnakeDirection(InputAction.CallbackContext givenValue)
+        {
+            if (!givenValue.performed)
+            {
+                return;
+            }
+            Vector2 newHeaDirectionFloat = givenValue.ReadValue<Vector2>();
+
+            Vector2Int newHeaDirection = Vector2Int.zero;
+            newHeaDirection.x = Mathf.CeilToInt(newHeaDirectionFloat.x);
+            newHeaDirection.y = Mathf.CeilToInt(newHeaDirectionFloat.y);
+            snakeHead.SegmentDirection = newHeaDirection;
+        }
+       
     }
 }

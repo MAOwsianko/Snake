@@ -12,8 +12,22 @@ namespace SnakeGame
         private SnakeSegmentController segmentFront = null;
         private SnakeSegmentController segmentBack = null;
         private Vector2Int segmentPosition = Vector2Int.zero;
-        private Vector2Int segmentDirection = Vector2Int.right;
-       
+        [SerializeField]  private Vector2Int segmentDirection = Vector2Int.right;
+
+
+
+        public Vector2Int SegmentDirection
+        {
+            get
+            {
+                return segmentDirection;
+            }
+            set
+            {
+                segmentDirection = value;
+            }
+        }
+
         public void SetupSnakeSegment(Vector2Int newPostion, Vector2Int newSegmentDirection)
         {
             SetupSnakeSegment(null, newPostion, newSegmentDirection);
@@ -61,6 +75,10 @@ namespace SnakeGame
                 segmentBack.SegmentAdvance();
             }
             MoveSegment();
+            if(segmentFront != null)
+            {
+                segmentDirection = segmentFront.segmentDirection;
+            }
         }
 
         private void MoveSegment()
@@ -94,6 +112,8 @@ namespace SnakeGame
 
             SetupSegmentPosition();
         }
+
+      
 
     }
 }
