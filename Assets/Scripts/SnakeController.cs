@@ -24,7 +24,7 @@ namespace SnakeGame
         private bool gameStarted = false;
         private Coroutine snakeMoveCoroutine = null;
         private float moveTime = 0.5f;
-        private SnakeSegmentController snakeHead = null;
+      
 
         private GameFieldController _gameFieldController = null;
         private GameFieldController gameFieldController
@@ -47,9 +47,9 @@ namespace SnakeGame
         }
         private void CleanupLastGame()
         {
-            if(snakeHead != null)
+            if(playField.SnakeHead != null)
             {
-                Destroy(snakeHead); 
+                Destroy(playField.SnakeHead); 
             }
         }
         public void ResetGame()
@@ -62,18 +62,18 @@ namespace SnakeGame
 
         private void SpawnSnake()
         {
-            snakeHead = Instantiate(snakeSegmentPrefab, transform);
+            var snakeHead = Instantiate(snakeSegmentPrefab, transform);
             snakeHead.SetupSnakeSegment(  initialPosition, initialDirection);
             for (int i = 0; i < initialSnakeSegmentsCount; i++)
             {
                 snakeHead.GrowSnake();
             }
-            playField.SeupSnakeHead(snakeHead);
+            playField.InitializeField(snakeHead);
         }
 
         private IEnumerator SnakeMove()
         {
-            if (snakeHead == null)
+            if (playField.SnakeHead == null)
             {
                 yield break;
             }
@@ -81,8 +81,8 @@ namespace SnakeGame
             while (gameStarted)
             {
                 yield return new WaitForSeconds(moveTime);
-                snakeHead.SegmentAdvance();
-                if(snakeHead.IsHeadIntersectSnake())
+                playField.SnakeHead.SegmentAdvance();
+                if(playField.SnakeHead.IsHeadIntersectSnake())
                 {
                     gameStarted = false;
                    
@@ -93,20 +93,13 @@ namespace SnakeGame
                 }
                 else
                 {
-                    CollectPowerUps();
+                    
                     gameTick.Rise();
                 }
             }
         }
 
-        public void CollectPowerUps()
-        {
-            var collectedPowerup = playField.CollectPowerUp(snakeHead);
-            if (collectedPowerup != null)
-            {
-                collectedPowerup.ApplyPowerUp(snakeHead);
-            }
-        }
+    
         public void SetSnakeDirection(InputAction.CallbackContext givenValue)
         {
             if(!gameStarted)
@@ -122,7 +115,7 @@ namespace SnakeGame
             Vector2Int newHeaDirection = Vector2Int.zero;
             newHeaDirection.x = Mathf.CeilToInt(newHeaDirectionFloat.x);
             newHeaDirection.y = Mathf.CeilToInt(newHeaDirectionFloat.y);
-            snakeHead.SegmentDirection = newHeaDirection;
+            playField.SnakeHead.SegmentDirection = newHeaDirection;
         }
        
     }

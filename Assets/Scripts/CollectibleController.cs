@@ -38,6 +38,7 @@ namespace SnakeGame
         public void SetupCollectible(Vector2Int newPosition, float collectibleSize, PowerUp newPowerUp )
         {
             spriteRenderer.size = Vector2.one* playFieldData.TileSize;
+            spriteRenderer.color = newPowerUp.powerUpColor;
             powerUp = newPowerUp;
             collectiblePosition = newPosition;
             Vector2 elementPosition = (Vector2)collectiblePosition * collectibleSize;

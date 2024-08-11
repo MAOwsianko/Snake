@@ -9,8 +9,8 @@ namespace SnakeGame
         [SerializeField] private float fillToSizeRatio = 0.8f;
         [SerializeField] private PlayFieldData playfieldData = null;
         [SerializeField] private Color gameOverColor = Color.red;
-        private SnakeSegmentController segmentFront = null;
-        private SnakeSegmentController segmentBack = null;
+        [SerializeField] private SnakeSegmentController segmentFront = null;
+        [SerializeField] private SnakeSegmentController segmentBack = null;
         private Vector2Int segmentPosition = Vector2Int.zero;
         [SerializeField] private Vector2Int segmentDirection = Vector2Int.right;
 
@@ -80,16 +80,31 @@ namespace SnakeGame
         }
         public void SegmentAdvance()
         {
+            if (this == playfieldData.SnakeHead)
+            {
+                CollectPowerUps();
+            }
             if (segmentBack != null)
             {
                 segmentBack.SegmentAdvance();
             }
+           
             MoveSegment();
             if (segmentFront != null)
             {
                 segmentDirection = segmentFront.segmentDirection;
             }
         }
+
+        public void CollectPowerUps()
+        {
+            var collectedPowerup = playfieldData.CollectPowerUp();
+            if (collectedPowerup != null)
+            {
+                collectedPowerup.ApplyPowerUp(this);
+            }
+        }
+
         public int GetSnakeLenght()
         {
             return GetSegmentsLenght(0);
@@ -185,7 +200,41 @@ namespace SnakeGame
 
         }
      
-      
+        public void ReverseSnake()
+        {
+            Vector2Int reverseVector = Vector2Int.one;
+            if(Mathf.Abs(segmentDirection.x)>0)
+            {
+                reverseVector.x = -1;
+            }
+            if (Mathf.Abs(segmentDirection.y) > 0)
+            {
+                reverseVector.y = -1;
+            }
+            ReverseSnake(reverseVector);
+        }
+
+        private void ReverseSnake(Vector2Int reverseVector)
+        {
+
+            segmentDirection.x *= reverseVector.x;
+            segmentDirection.y *= reverseVector.y;
+
+            var segmentFrontLast = segmentFront;
+            var segmentBackLast = segmentBack;
+            segmentBack = segmentFrontLast;
+            segmentFront = segmentBackLast;
+
+            if (segmentBackLast != null)
+            {
+                segmentBackLast.ReverseSnake();
+            }
+            else
+            {
+                playfieldData.SnakeHead = this;
+            }
+
+        }
 
     }
 }

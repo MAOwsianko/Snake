@@ -101,7 +101,10 @@ MonoBehaviour:
   playfieldData: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
   powerUps:
   - {fileID: 11400000, guid: 483ff71ae7b87e04abd45b97fabef0e1, type: 2}
+  - {fileID: 11400000, guid: 27d411e17d2838b448ebaf37bc42b39d, type: 2}
   powerupsPerSpawn: 3
+  spawnInterval: 2
+  lastSpawnTime: -1
 --- !u!1 &3314124523168775556
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,18 @@ namespace SnakeGame
         private List<CollectibleController> collectiblesOnField = new List<CollectibleController>();
         private SnakeSegmentController snakeHead = null;    
 
-       
+        
+        public SnakeSegmentController SnakeHead
+        {
+            get
+            {
+                return snakeHead;
+            }
+            set
+            {
+                snakeHead = value;
+            }
+        }
 
         public float TileSize
         {
@@ -32,10 +43,20 @@ namespace SnakeGame
             }
         }
 
-        public void SeupSnakeHead(SnakeSegmentController newSnakeHead)
+        public void InitializeField(SnakeSegmentController newSnakeHead)
         {
-            snakeHead = newSnakeHead;   
+            snakeHead = newSnakeHead;
+            foreach(var collectible in collectiblesOnField)
+            {
+                if(collectible != null)
+                {
+                    Destroy(collectible);
+                }
+                
+            }
+            collectiblesOnField.Clear();
         }
+ 
 
         public Vector2Int GetMaxTilePosition()
         {
@@ -111,13 +132,13 @@ namespace SnakeGame
             return null;
         }
 
-       public PowerUp CollectPowerUp(SnakeSegmentController headSegment)
+       public PowerUp CollectPowerUp()
        {
-            if(headSegment == null)
+            if(SnakeHead == null)
             {
                 return null;
             }
-            var collectible = GetCollectibleOnPosition(headSegment.SegmentPosition);   
+            var collectible = GetCollectibleOnPosition(SnakeHead.SegmentPosition);   
             if(collectible != null)
             {
                 collectiblesOnField.Remove(collectible);
