@@ -102,6 +102,7 @@ MonoBehaviour:
   powerUps:
   - {fileID: 11400000, guid: 483ff71ae7b87e04abd45b97fabef0e1, type: 2}
   - {fileID: 11400000, guid: 27d411e17d2838b448ebaf37bc42b39d, type: 2}
+  - {fileID: 11400000, guid: f58890ede3c1cf145b48ab9bb114415d, type: 2}
   powerupsPerSpawn: 3
   spawnInterval: 2
   lastSpawnTime: -1

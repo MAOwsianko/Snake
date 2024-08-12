@@ -59,19 +59,7 @@ namespace SnakeGame
             SetupSegmentPosition();
         }
 
-        public void GrowSnake()
-        {
-            if (segmentBack == null)
-            {
-                segmentBack = Instantiate(this, transform.parent);
 
-                segmentBack.SetupSnakeSegment(this, segmentPosition - segmentDirection, segmentDirection);
-            }
-            else
-            {
-                segmentBack.GrowSnake();
-            }
-        }
         public void SetGameover()
         {
             segmentFill.color = gameOverColor;
@@ -234,8 +222,42 @@ namespace SnakeGame
             return segmentBack.IsHeadIntersectSnake(this);
 
         }
-        
-     
+        public void GrowSnake()
+        {
+            if (segmentBack == null)
+            {
+                segmentBack = Instantiate(this, transform.parent);
+
+                segmentBack.SetupSnakeSegment(this, segmentPosition - segmentDirection, segmentDirection);
+            }
+            else
+            {
+                segmentBack.GrowSnake();
+            }
+        }
+
+        public void ShrinkSnake()
+        {
+            if (segmentBack != null)
+            {
+                segmentBack.ShrinkSnake(); // this is not the end we move further down the snake
+            }
+            else
+            {
+                if (segmentFront == null)
+                {
+                    return; // we do not shirink below 1 segment
+                }
+                else
+                {
+                    segmentFront.segmentBack = null;
+                    Destroy(this);//this is the last element, we remove it
+                    return;  
+                }
+             
+            }
+        }
+
         public void ReverseSnake()
         {
             var segmentFrontLast = segmentFront;
