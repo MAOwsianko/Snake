@@ -34,6 +34,15 @@ namespace SnakeGame
                 segmentDirection = value;
             }
         }
+        public void TurnSnake(Vector2Int newSnakeDirection)
+        {
+            Vector2Int suicideDIrection = segmentDirection * -1;
+            if(newSnakeDirection==suicideDIrection)
+            {
+                return;  // we do not let the player turn the snake 180 deg and eat itself , we only allow 90 deg turns
+            }
+            segmentDirection = newSnakeDirection;
+        }
 
         public void SetupSnakeSegment(Vector2Int newPostion, Vector2Int newSegmentDirection)
         {

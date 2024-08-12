@@ -115,7 +115,7 @@ namespace SnakeGame
             Vector2Int newHeaDirection = Vector2Int.zero;
             newHeaDirection.x = Mathf.CeilToInt(newHeaDirectionFloat.x);
             newHeaDirection.y = Mathf.CeilToInt(newHeaDirectionFloat.y);
-            playField.SnakeHead.SegmentDirection = newHeaDirection;
+            playField.SnakeHead.TurnSnake(newHeaDirection);
         }
        
     }
