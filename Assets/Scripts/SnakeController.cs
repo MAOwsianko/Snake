@@ -38,11 +38,7 @@ namespace SnakeGame
         }
         
     
-        private void Start()
-        {
-            ResetGame();
-           
-        }
+     
         private void CleanupLastGame()
         {
             if(snakeData.SnakeHead != null)
