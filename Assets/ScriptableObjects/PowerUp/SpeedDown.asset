@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585ac201cdeb9f546b92c35363a8b187, type: 3}
-  m_Name: ExtendSnake
+  m_Script: {fileID: 11500000, guid: 8950de85566b01c468690149f5b2b97a, type: 3}
+  m_Name: SpeedDown
   m_EditorClassIdentifier: 
-  avialbility: 20
-  powerUpColor: {r: 0.4509804, g: 0.50980395, b: 0.16078432, a: 1}
+  powerUpColor: {r: 0.33285868, g: 0.7286407, b: 0.8301887, a: 1}
+  speedMultiplier: 0.5
+  effectDuration: 5
+  snakeData: {fileID: 11400000, guid: a539eadd008e56540b69d6f0f14f269b, type: 2}

@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c0901ee3339a845be86e6cc99e73e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakeData: {fileID: 11400000, guid: a539eadd008e56540b69d6f0f14f269b, type: 2}
   playField: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
   gameTick: {fileID: 11400000, guid: ad3629d50ce323f4ca0bda9e9dd75615, type: 2}
   gameOverEvent: {fileID: 11400000, guid: 7504e4304d02ec8458fdaebb60618749, type: 2}
-  initialSnakeSegmentsCount: 3
+  initialSnakeSegmentsCount: 4
   initialPosition: {x: 0, y: 0}
   initialDirection: {x: 1, y: 0}
   initialMoveTime: 0.5

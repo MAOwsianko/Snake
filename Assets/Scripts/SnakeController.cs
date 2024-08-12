@@ -8,6 +8,7 @@ namespace SnakeGame
 {
     public class SnakeController : MonoBehaviour
     {
+        [SerializeField] private SnakeData snakeData = null;
         [SerializeField] private PlayFieldData playField = null;
         [SerializeField] private GameEvent gameTick = null;
         [SerializeField] private GameEvent gameOverEvent = null;
@@ -17,9 +18,6 @@ namespace SnakeGame
         [SerializeField] private float initialMoveTime = 0.5f;
        
         [SerializeField] private SnakeSegmentController snakeSegmentPrefab = null;
-
-       
-
 
         private bool gameStarted = false;
         private Coroutine snakeMoveCoroutine = null;
@@ -47,9 +45,9 @@ namespace SnakeGame
         }
         private void CleanupLastGame()
         {
-            if(playField.SnakeHead != null)
+            if(snakeData.SnakeHead != null)
             {
-                Destroy(playField.SnakeHead); 
+                Destroy(snakeData.SnakeHead); 
             }
         }
         public void ResetGame()
@@ -57,6 +55,7 @@ namespace SnakeGame
             CleanupLastGame();
             moveTime = initialMoveTime;
             SpawnSnake();
+            
             snakeMoveCoroutine = StartCoroutine(SnakeMove());
         }
 
@@ -68,21 +67,22 @@ namespace SnakeGame
             {
                 snakeHead.GrowSnake();
             }
-            playField.InitializeField(snakeHead);
+            playField.InitializeField();
+            snakeData.ResetSnakeData(snakeHead);
         }
 
         private IEnumerator SnakeMove()
         {
-            if (playField.SnakeHead == null)
+            if (snakeData.SnakeHead == null)
             {
                 yield break;
             }
             gameStarted = true;
             while (gameStarted)
             {
-                yield return new WaitForSeconds(moveTime);
-                playField.SnakeHead.SegmentAdvance();
-                if(playField.SnakeHead.IsHeadIntersectSnake())
+                yield return new WaitForSeconds(moveTime / snakeData.GetSpeedMultiplier());
+                snakeData.SnakeHead.SegmentAdvance();
+                if(snakeData.SnakeHead.IsHeadIntersectSnake())
                 {
                     gameStarted = false;
                    
@@ -115,7 +115,7 @@ namespace SnakeGame
             Vector2Int newHeaDirection = Vector2Int.zero;
             newHeaDirection.x = Mathf.CeilToInt(newHeaDirectionFloat.x);
             newHeaDirection.y = Mathf.CeilToInt(newHeaDirectionFloat.y);
-            playField.SnakeHead.TurnSnake(newHeaDirection);
+            snakeData.SnakeHead.TurnSnake(newHeaDirection);
         }
        
     }

@@ -5,7 +5,24 @@ namespace SnakeGame
 {
     public abstract class PowerUp : ScriptableObject
     {
-        public Color powerUpColor = Color.white;
+        [Header("The higher the avialbility the more common the power up")]
+        [SerializeField] private int avialbility = 1;
+        [SerializeField] protected Color powerUpColor = Color.white;
+
+        public int Avialbility
+        {
+            get
+            {
+                return avialbility;
+            }
+        }
+        public Color PowerUpColor
+        {
+            get 
+            { 
+                return powerUpColor; 
+            }
+        }
         public abstract void ApplyPowerUp(SnakeSegmentController snakeHead);
 
     }

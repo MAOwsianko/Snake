@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585ac201cdeb9f546b92c35363a8b187, type: 3}
-  m_Name: ExtendSnake
+  m_Script: {fileID: 11500000, guid: f932414e33ea63542841734a26bac3a0, type: 3}
+  m_Name: SnakeData
   m_EditorClassIdentifier: 
-  avialbility: 20
-  powerUpColor: {r: 0.4509804, g: 0.50980395, b: 0.16078432, a: 1}
+  speedMultiplier: 1
+  effectDuration: 0

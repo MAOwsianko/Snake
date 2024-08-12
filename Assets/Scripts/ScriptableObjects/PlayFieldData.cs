@@ -7,26 +7,17 @@ namespace SnakeGame
     [CreateAssetMenu(menuName = "Snake/PlayFieldData")]
     public class PlayFieldData : ScriptableObject
     {
+        [SerializeField] private SnakeData snakeData;
         [SerializeField] private float tileSize = 0.25f;
-        [Tooltip("Tte tile grid size has to have odd number in both witdht and height, so we have a defined middle element")]
+        [Header("Odd number in both witdht and height")]
+        [Tooltip("Odd number in both witdht and height")]
         [SerializeField] private Vector2Int tilesGridSize = new Vector2Int(57, 33);
         [SerializeField] private Vector2 gridCenter = Vector2.right;
         [SerializeField] private CollectibleController collectiblePrefab = null;
-        private List<CollectibleController> collectiblesOnField = new List<CollectibleController>();
-        private SnakeSegmentController snakeHead = null;    
+        [SerializeField] private PowerUp[] powerUps = null;
 
-        
-        public SnakeSegmentController SnakeHead
-        {
-            get
-            {
-                return snakeHead;
-            }
-            set
-            {
-                snakeHead = value;
-            }
-        }
+        private List<CollectibleController> collectiblesOnField = new List<CollectibleController>();
+      
 
         public float TileSize
         {
@@ -57,9 +48,9 @@ namespace SnakeGame
             return  (Vector2)gridPosition * tileSize + gridCenter;
         }
 
-        public void InitializeField(SnakeSegmentController newSnakeHead)
+        public void InitializeField()
         {
-            snakeHead = newSnakeHead;
+          
             foreach(var collectible in collectiblesOnField)
             {
                 if(collectible != null)
@@ -69,6 +60,7 @@ namespace SnakeGame
                 
             }
             collectiblesOnField.Clear();
+            Random.InitState(System.DateTime.Now.Millisecond);
         }
  
 
@@ -89,12 +81,29 @@ namespace SnakeGame
             return -1 * GetMaxTilePosition();
         }
 
-        public void SpawnCollectible(PowerUp powerUp, Transform targetTransform)
+        private PowerUp GetRandomPowerUp()
         {
-            if(snakeHead==null)
+            List<PowerUp> tmpPowerUpList = new List<PowerUp>(); 
+            foreach(var newPowerUp in powerUps)
+            {
+                for(int i = 0;i<newPowerUp.Avialbility;i++)
+                {
+                    tmpPowerUpList.Add(newPowerUp);
+                }
+            }
+            int powerUpTypeIndex = Random.Range(0, tmpPowerUpList.Count);
+            return tmpPowerUpList[powerUpTypeIndex];
+        }
+
+        public void SpawnCollectible( Transform targetTransform)
+        {
+            if(snakeData.SnakeHead == null)
             {
                 return;
             }
+         
+            PowerUp powerUp = GetRandomPowerUp();
+
 
             Vector2Int minPosition = GetMinTilePosition();
             Vector2Int maxPosition = GetMaxTilePosition();
@@ -105,7 +114,7 @@ namespace SnakeGame
                 for (int y = minPosition.y+1; y <= maxPosition.y-1; y++) // we do not want the spand to happen on the border, it does not look nice
                 {
                     Vector2Int possibleLocation = new Vector2Int(x, y);
-                    if(snakeHead.IsPositionOnSnake(possibleLocation))
+                    if(snakeData.SnakeHead.IsPositionOnSnake(possibleLocation))
                     {
                         continue;
                     }
@@ -145,11 +154,11 @@ namespace SnakeGame
 
        public PowerUp CollectPowerUp()
        {
-            if(SnakeHead == null)
+            if(snakeData.SnakeHead == null)
             {
                 return null;
             }
-            var collectible = GetCollectibleOnPosition(SnakeHead.SegmentPosition);   
+            var collectible = GetCollectibleOnPosition(snakeData.SnakeHead.SegmentPosition);   
             if(collectible != null)
             {
                 collectiblesOnField.Remove(collectible);

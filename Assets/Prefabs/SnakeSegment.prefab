@@ -185,8 +185,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segmentFill: {fileID: 7326754239994675450}
   fillToSizeRatio: 0.8
+  snakeData: {fileID: 11400000, guid: a539eadd008e56540b69d6f0f14f269b, type: 2}
   playfieldData: {fileID: 11400000, guid: bec087142ce6abc4f866ff397a01a21b, type: 2}
   gameOverColor: {r: 1, g: 0, b: 0, a: 1}
+  segmentFront: {fileID: 0}
+  segmentBack: {fileID: 0}
+  segmentPosition: {x: 0, y: 0}
   segmentDirection: {x: 1, y: 0}
 --- !u!114 &3989109720924629688
 MonoBehaviour:

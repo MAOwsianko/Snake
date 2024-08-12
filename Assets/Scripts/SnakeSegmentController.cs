@@ -7,6 +7,7 @@ namespace SnakeGame
     {
         [SerializeField] private SpriteRenderer segmentFill = null;
         [SerializeField] private float fillToSizeRatio = 0.8f;
+        [SerializeField] private SnakeData snakeData = null;
         [SerializeField] private PlayFieldData playfieldData = null;
         [SerializeField] private Color gameOverColor = Color.red;
         [SerializeField] private SnakeSegmentController segmentFront = null;
@@ -77,7 +78,7 @@ namespace SnakeGame
         }
         public void SegmentAdvance()
         {
-            if (this == playfieldData.SnakeHead)
+            if (this == snakeData.SnakeHead)
             {
                 CollectPowerUps();
             }
@@ -121,6 +122,7 @@ namespace SnakeGame
             if (collectedPowerup != null)
             {
                 collectedPowerup.ApplyPowerUp(this);
+                snakeData.AddPoint();
             }
         }
 
@@ -235,6 +237,7 @@ namespace SnakeGame
                 segmentBack.GrowSnake();
             }
         }
+      
 
         public void ShrinkSnake()
         {
@@ -274,7 +277,7 @@ namespace SnakeGame
             else
             {
                 segmentDirection *= -1;
-                playfieldData.SnakeHead = this;
+                snakeData.SnakeHead = this;
             }
 
 
