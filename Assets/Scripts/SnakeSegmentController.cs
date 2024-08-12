@@ -11,7 +11,7 @@ namespace SnakeGame
         [SerializeField] private Color gameOverColor = Color.red;
         [SerializeField] private SnakeSegmentController segmentFront = null;
         [SerializeField] private SnakeSegmentController segmentBack = null;
-        private Vector2Int segmentPosition = Vector2Int.zero;
+        [SerializeField] private Vector2Int segmentPosition = Vector2Int.zero;
         [SerializeField] private Vector2Int segmentDirection = Vector2Int.right;
 
         public Vector2Int SegmentPosition
@@ -90,11 +90,33 @@ namespace SnakeGame
             }
            
             MoveSegment();
-            if (segmentFront != null)
-            {
-                segmentDirection = segmentFront.segmentDirection;
-            }
+           
         }
+
+        private Vector2Int GenerateSegmentDirection()
+        {
+            Vector2Int newDirection = segmentFront.segmentPosition - segmentPosition;
+            if(newDirection.x <-1)
+            {
+                newDirection.x = 1; // we crosseed the right edge
+               
+            }
+            else if(newDirection.x>1)
+            {
+                newDirection.x = -1;// we crosseed the left edge
+            }
+            else if (newDirection.y < -1)
+            {
+                newDirection.y = 1; // we crosseed the top edge
+            }
+            else if (newDirection.y > 1)
+            {
+                newDirection.y = -1;// we crosseed the bottom edge
+            }
+            return newDirection;
+        }
+
+
 
         public void CollectPowerUps()
         {
@@ -135,6 +157,10 @@ namespace SnakeGame
 
         private void MoveSegment()
         {
+            if (segmentFront != null)
+            {
+                segmentDirection = GenerateSegmentDirection();
+            }
             segmentPosition += segmentDirection;
             Vector2Int maxTilePos = playfieldData.GetMaxTilePosition();
             Vector2Int minTilePos = playfieldData.GetMinTilePosition();
@@ -199,40 +225,27 @@ namespace SnakeGame
             return segmentBack.IsHeadIntersectSnake(this);
 
         }
+        
      
         public void ReverseSnake()
         {
-            Vector2Int reverseVector = Vector2Int.one;
-            if(Mathf.Abs(segmentDirection.x)>0)
-            {
-                reverseVector.x = -1;
-            }
-            if (Mathf.Abs(segmentDirection.y) > 0)
-            {
-                reverseVector.y = -1;
-            }
-            ReverseSnake(reverseVector);
-        }
-
-        private void ReverseSnake(Vector2Int reverseVector)
-        {
-
-            segmentDirection.x *= reverseVector.x;
-            segmentDirection.y *= reverseVector.y;
-
             var segmentFrontLast = segmentFront;
             var segmentBackLast = segmentBack;
             segmentBack = segmentFrontLast;
             segmentFront = segmentBackLast;
 
+           
             if (segmentBackLast != null)
             {
+                segmentDirection = GenerateSegmentDirection();
                 segmentBackLast.ReverseSnake();
             }
             else
             {
+                segmentDirection *= -1;
                 playfieldData.SnakeHead = this;
             }
+
 
         }
 
