@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f932414e33ea63542841734a26bac3a0, type: 3}
-  m_Name: SnakeData
+  m_Script: {fileID: 11500000, guid: b2be38801bb0fdd40b76b8cb9142f5cc, type: 3}
+  m_Name: CollectPowerUpEvent
   m_EditorClassIdentifier: 
-  collectPowerUpEvent: {fileID: 11400000, guid: 16c9e3be56a2b1f4c9a1b8ad6bc715d6, type: 2}
-  speedMultiplier: 1
-  effectDuration: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Snake/SnakeData")]
 public class SnakeData : ScriptableObject
 {
+    [SerializeField] private GameEvent collectPowerUpEvent = null;
     [SerializeField] float speedMultiplier = 1f;
     [SerializeField] float effectDuration = 0.0f;
     private int points = 0;
@@ -74,5 +75,6 @@ public class SnakeData : ScriptableObject
     public void AddPoint()
     {
         points++;
+        collectPowerUpEvent.Rise();
     }
 }

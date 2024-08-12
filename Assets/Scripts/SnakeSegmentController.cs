@@ -5,6 +5,7 @@ namespace SnakeGame
 {
     public class SnakeSegmentController : MonoBehaviour
     {
+        
         [SerializeField] private SpriteRenderer segmentFill = null;
         [SerializeField] private float fillToSizeRatio = 0.8f;
         [SerializeField] private SnakeData snakeData = null;
