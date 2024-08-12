@@ -84,7 +84,7 @@ namespace SnakeGame
         }
         private void SetupSegmentPosition()
         {
-            Vector2 elementPosition = (Vector2)segmentPosition * playfieldData.TileSize;
+            Vector2 elementPosition = playfieldData.GridToRealPosition(segmentPosition); 
             transform.position = elementPosition;
         }
         public void SegmentAdvance()

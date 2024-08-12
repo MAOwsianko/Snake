@@ -35,6 +35,7 @@ namespace SnakeGame
             float fieldWidth = playfieldData.TileSize * (float)playfieldData.TilesGridSize.x;
             float fieldHeight = playfieldData.TileSize * (float)playfieldData.TilesGridSize.y;
             spriteRenderer.size = new Vector2(fieldWidth, fieldHeight);
+            transform.position = playfieldData.GridCenter;
         }
 
         public void OnGameTick()

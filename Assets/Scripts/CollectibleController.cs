@@ -35,15 +35,15 @@ namespace SnakeGame
                 return collectiblePosition;
             }
         }
-        public void SetupCollectible(Vector2Int newPosition, float collectibleSize, PowerUp newPowerUp )
+        public void SetupCollectible(Vector2Int newPosition, PowerUp newPowerUp )
         {
             spriteRenderer.size = Vector2.one* playFieldData.TileSize;
             spriteRenderer.color = newPowerUp.powerUpColor;
             powerUp = newPowerUp;
             collectiblePosition = newPosition;
-            Vector2 elementPosition = (Vector2)collectiblePosition * collectibleSize;
-            transform.position = elementPosition;
-          
+ 
+            transform.position = playFieldData.GridToRealPosition(collectiblePosition);
+
         }
         private void OnDestroy()
         {
