@@ -1533,7 +1533,7 @@ GameObject:
   - component: {fileID: 4678369136534699500}
   - component: {fileID: 8487403888738039818}
   m_Layer: 5
-  m_Name: Game OVER
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2689,7 +2689,7 @@ GameObject:
   - component: {fileID: 3036915210521377995}
   - component: {fileID: 5238306371339533690}
   m_Layer: 5
-  m_Name: GameOverWindow
+  m_Name: GammeStartWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
